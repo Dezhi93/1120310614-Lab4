@@ -1,0 +1,62 @@
+<p>You searched for: <strong>{{ query }}</strong></p>
+
+{% if books %}
+    <p>Found {{ books|length }} book{{ books|pluralize }}.</p>
+    <ul>
+        {% for book in books %}
+        <li onclick='change("{{ book.Title }}"); return false;'>
+        	{{ book.Title }}
+        </li>
+        <form action="" method="get">
+        		<input type="hidden" name="d" value="{{ book.id }}">
+        		<input type="hidden" name="q" value="{{ query }}">
+        		<input type="submit" value="Delete">
+    	</form>
+        <div id ={{ book.Title }} style="display : none;">
+        <style type="text/css">
+        table, th, td{
+        	border: 1px solid black;
+        }
+        </style>
+        <table>
+        	<thead>
+ 				<tr>
+ 					<th>ISBN</th>
+        			<th>Title</th>
+        			<th>AuthorID</th>
+        			<th>Publisher</th>
+        			<th>PublishDate</th>
+        			<th>Price</th>
+        		</tr>
+        	</thead>
+        	<tbody>
+        		<tr>
+        			<td>{{ book.ISBN }}</td>
+        			<td>{{ book.Title }}</td>
+        			<td>{{ book.AuthorID }}</td>
+        		 	<td>{{ book.Publisher }}</td>
+        		 	<td>{{ book.PublishDate }}</td>
+        		 	<td>{{ book.Price }}</td>
+        		</tr>
+        	</tbody>
+        </table>
+        	
+        </div>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No books matched your search criteria.</p>
+{% endif %}
+
+<script type="text/javascript">
+function change(title) {
+	whichEl = document.getElementById(title);
+	if (whichEl.style.display == 'none') {   //block是默认值为显示,none为隐藏
+   whichEl.style.display   = 'block';
+} else {
+     whichEl.style.display   = 'none';
+   }
+
+}
+</script>
+
